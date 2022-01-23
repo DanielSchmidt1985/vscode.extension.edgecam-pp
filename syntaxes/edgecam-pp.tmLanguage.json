@@ -203,7 +203,7 @@
 		"variables": {
 			"patterns": [
 				{
-					"match": "(?i)\\s*([^%][#$]*[a-z0-9]*)\\s*([=<>*+-/]{1,2})\\s*([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*",
+					"match": "(?i)\\s*([^%][#$]*[a-z0-9]+)\\s*([=<>*+-/]{1,2})\\s*([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*",
 					"captures": {
 						"1": {
 							"patterns": [
@@ -221,7 +221,7 @@
 									"include": "#numbers"
 								},
 								{
-									"match": "(?i)(.*[_].*|NO|YES|N|Y)",
+									"match": "(?i)(.*[_].*)",
 									"name": "string.quoted.double.edgecam-pp"
 								},
 								{
@@ -237,16 +237,21 @@
 			"begin": "\\[",
 			"beginCaptures": {
 				"0": {
-					"name": "entity.name.type.namespace.edgecam-pp"
+					"name": "source.edgecam-pp"
 				}
 			},
 			"end": "\\]",
 			"endCaptures": {
 				"0": {
-					"name": "entity.name.type.namespace.edgecam-pp"
+					"name": "source.edgecam-pp"
 				}
 			},
-			"name": "entity.name.type.namespace.edgecam-pp"
+			"name": "source.edgecam-pp",
+			"patterns": [
+				{
+					"include": "#var"
+				}
+			]
 		},
 		"strings": {
 			"patterns": [
