@@ -1,0 +1,48 @@
+{
+    "name": "edgecam-pp",
+    "displayName": "%displayName%",
+    "description": "%description%",
+    "version": "1.0.0",
+    "publisher": "daniel.schmidt",
+    "license": "MIT",
+    "engines": {
+      "vscode": "0.10.x"
+    },
+    "scripts": {
+      "update-grammar": "node ../node_modules/vscode-grammar-updater/bin atom/language-css grammars/css.cson ./syntaxes/css.tmLanguage.json"
+    },
+    "contributes": {
+      "languages": [
+        {
+          "id": "edgecam-pp",
+          "aliases": [
+            "EDGECAM Postprocessor"
+          ],
+          "extensions": [
+            ".cxt",
+            ".mxt",
+            ".cgs",
+            ".cgi"
+          ],
+          "mimetypes": [
+            "text/edgecam-pp"
+          ],
+          "configuration": "./language-configuration.json"
+        }
+      ],
+      "grammars": [
+        {
+          "language": "edgecam-pp",
+          "scopeName": "source.edgecam-pp",
+          "path": "./syntaxes/edgecam-pp.tmLanguage.json",
+          "tokenTypes": {
+            "meta.function.url string.quoted": "other"
+          }
+        }
+      ]
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/microsoft/vscode.git"
+    }
+  }
