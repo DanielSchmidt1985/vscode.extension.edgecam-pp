@@ -21,6 +21,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#keywords-var"
+		},
+		{
 			"include": "#system-variables"
 		},
 		{
@@ -78,10 +81,35 @@
 				}
 			]
 		},
+		"keywords-var": {
+			"patterns": [
+				{
+					"match": "(?i)(%(?:declare|getcpl|load|output|cancel|output-if-changed|always-output|dont-output))\\s*(=)\\s*([#$,a-z0-9]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.control.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#var"
+								},
+								{
+									"include": "#variables"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
 		"keywords": {
 			"patterns": [
 				{
-					"match": "(?i)%(?:declare|getcpl|load|output|data1|data2|cancel|nocycle|cxcycle|output-if-changed|always-output|dont-output)",
+					"match": "(?i)%(?:data1|data2|nocycle|cxcycle)",
 					"name": "keyword.control.edgecam-pp"
 				},
 				{
@@ -140,13 +168,13 @@
 			"begin": "<",
 			"beginCaptures": {
 				"0": {
-					"name": "entity.name.type.namespace.edgecam-pp"
+					"name": "string.quoted.double.edgecam-pp"
 				}
 			},
 			"end": ">",
 			"endCaptures": {
 				"0": {
-					"name": "entity.name.type.namespace.edgecam-pp"
+					"name": "string.quoted.double.edgecam-pp"
 				}
 			},
 			"name": "string.quoted.double.edgecam-pp",
@@ -237,21 +265,16 @@
 			"begin": "\\[",
 			"beginCaptures": {
 				"0": {
-					"name": "source.edgecam-pp"
+					"name": "string.regexp.edgecam-pp"
 				}
 			},
 			"end": "\\]",
 			"endCaptures": {
 				"0": {
-					"name": "source.edgecam-pp"
+					"name": "string.regexp.edgecam-pp"
 				}
 			},
-			"name": "source.edgecam-pp",
-			"patterns": [
-				{
-					"include": "#var"
-				}
-			]
+			"name": "string.regexp.edgecam-pp"
 		},
 		"strings": {
 			"patterns": [
