@@ -135,7 +135,7 @@
 		"procedures": {
 			"patterns": [
 				{
-					"match": "(?i)^\\s*(%(?:PROCEDURE|MACRO|MACHINE))\\s*=\\s*(.*)\\s*",
+					"match": "(?i)^\\s*(%(?:PROCEDURE|MACRO|MACHINE|INCLUDE))\\s*=\\s*(.*)\\s*",
 					"captures": {
 						"1": {
 							"name": "keyword.others.proc-start.edgecam-pp"
