@@ -332,7 +332,7 @@
 					"name": "comment.line.edgecam-pp"
 				},
 				{
-					"match": "(\\S+)(\\|)(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})\\s*$", 
+					"match": "(?i)([\\S]+)(\\|)([^\\s\\\\/:*?<>\"\\|]+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})\\s*$", 
 					"captures": {
 						"1": {
 							"name": "string.quoted.double.edgecam-pp"
