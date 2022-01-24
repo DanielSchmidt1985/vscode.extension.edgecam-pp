@@ -44,6 +44,12 @@
 			"include": "#brackets-round"
 		},
 		{
+			"include": "#COMMAND-ENDCOMMAND"
+		},
+		{
+			"include": "#MACRO-DEFINITION"
+		},
+		{
 			"include": "#ascii-code"
 		}
 	],
@@ -135,7 +141,7 @@
 		"procedures": {
 			"patterns": [
 				{
-					"match": "(?i)^\\s*(%(?:PROCEDURE|MACRO|MACHINE|INCLUDE))\\s*=\\s*(.*)\\s*",
+					"match": "(?i)^\\s*(%(?:PROCEDURE|MACHINE|INCLUDE))\\s*=\\s*(.*)\\s*",
 					"captures": {
 						"1": {
 							"name": "keyword.others.proc-start.edgecam-pp"
@@ -146,7 +152,7 @@
 					}
 				},
 				{
-					"match": "(?i)^\\s*%(?:FORMAT|COMMAND|ENDMACH|ENDCOMMAND|ENDM|ENDF)",
+					"match": "(?i)^\\s*%(?:FORMAT|ENDMACH|ENDM|ENDF)",
 					"name": "keyword.others.proc-end.edgecam-pp"
 				}
 			]
@@ -298,6 +304,119 @@
 					"name": "constant.character.escape.edgecam-pp"
 				}
 			]
+		},
+		"COMMAND-ENDCOMMAND": {
+			"begin": "%COMMAND",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"end": "%ENDCOMMAND",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"patterns": [
+				{
+					"match": "(\\S+)(\\|)(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})",
+					"captures": {
+						"1": {
+							"name": "string.quoted.double.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"name": "keyword.control.plugin-name.edgecam-pp"
+						},
+						"4": {
+							"name": "constant.numeric.edgecam-pp"
+						}
+					}
+				},
+				{
+					"match": "(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){7,7})(.*)",
+					"captures": {
+						"1": {
+							"name": "string.quoted.double.edgecam-pp"
+						},
+						"2": {
+							"name": "constant.numeric.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"match": "([^,]+)(,){0,1}(.*)",
+									"captures": {
+										"1": {
+											"name": "entity.name.type.namespace.edgecam-pp"
+										},
+										"2": {
+											"name": "keyword.operator.edgecam-pp"
+										},
+										"3": {
+											"patterns": [
+												{
+													"match": "[+-]{0,1}[\\d.]+",
+													"name": "constant.numeric.edgecam-pp"
+												}
+											]
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			],
+			"name": "string.quoted.double.edgecam-pp"
+		},
+		"MACRO-DEFINITION": {
+			"match": "\\s*(%MACRO)(=.*)",
+			"captures": {
+				"1": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				},
+				"2": {
+					"patterns": [
+						{
+							"match": "=([^=]*)(=){0,1}([^=]*)(=){0,1}([^=]*)(=){0,1}([^=]*)(=){0,1}(.*)",
+							"captures": {
+								"1": {
+									"name":"entity.name.function.edgecam-pp"
+								},
+								"3": {
+									"name":"string.quoted.double.edgecam-pp"
+								},
+								"5": {
+									"name": "string.quoted.double.edgecam-pp"
+								},
+								"7": {
+									"patterns":[
+										{
+											"match": "[,\\[\\]\\|]",
+											"name": "keyword.operator.edgecam-pp"
+										}
+									],
+									"name": "constant.numeric.edgecam-pp"
+								},
+								"9": {
+									"patterns":[
+										{
+											"match": "[/]",
+											"name": "keyword.operator.options-splitter.edgecam-pp"
+										}
+									],
+									"name": "string.quoted.double.edgecam-pp"
+								}
+							},
+							"name": "keyword.operator.macro-splitter.edgecam-pp"
+						}
+					]
+				}
+			}
 		}
 	}
 }
