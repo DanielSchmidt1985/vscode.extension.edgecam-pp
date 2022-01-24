@@ -146,7 +146,7 @@
 					}
 				},
 				{
-					"match": "(?i)^\\s*%(?:FORMAT|ENDM|ENDMACH|ENDF)",
+					"match": "(?i)^\\s*%(?:FORMAT|COMMAND|ENDMACH|ENDCOMMAND|ENDM|ENDF)",
 					"name": "keyword.others.proc-end.edgecam-pp"
 				}
 			]
