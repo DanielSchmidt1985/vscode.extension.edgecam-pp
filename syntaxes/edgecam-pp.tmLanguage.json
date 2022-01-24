@@ -8,49 +8,13 @@
 	"scopeName": "source.edgecam-pp",
 	"patterns": [
 		{
-			"include": "#output"
-		},
-		{
 			"include": "#comments"
 		},
 		{
-			"include": "#procedures"
+			"include": "#MAKRO-ENDM"
 		},
 		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#keywords-var"
-		},
-		{
-			"include": "#system-variables"
-		},
-		{
-			"include": "#variables"
-		},
-		{
-			"include": "#calls"
-		},
-		{
-			"include": "#functions"
-		},
-		{
-			"include": "#lables"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#brackets-round"
-		},
-		{
-			"include": "#COMMAND-ENDCOMMAND"
-		},
-		{
-			"include": "#MACRO-DEFINITION"
-		},
-		{
-			"include": "#ascii-code"
+			"include": "#PROCEDURE-ENDM"
 		}
 	],
 	"repository": {
@@ -141,7 +105,7 @@
 		"procedures": {
 			"patterns": [
 				{
-					"match": "(?i)^\\s*(%(?:PROCEDURE|MACHINE|INCLUDE))\\s*=\\s*(.*)\\s*",
+					"match": "(?i)^\\s*(%(?:MACHINE|INCLUDE))\\s*=\\s*(.*)\\s*",
 					"captures": {
 						"1": {
 							"name": "keyword.others.proc-start.edgecam-pp"
@@ -305,6 +269,45 @@
 				}
 			]
 		},
+		"if": 
+		{
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%if)",
+					"captures":{
+						"1"	:{
+							"name":"keyword.control.if.edgecam-pp"
+						}
+					}
+				}
+			]
+		},
+		"single-line-proc": {
+			"patterns": [
+				{
+					"include": "#if"
+				}
+			]
+		},
+		"block-line-proc": { 
+			"patterns": [
+				{
+					"match": "(^|:)([^:]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.operator.line-splitter.edgecam-pp"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#single-line-proc"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
 		"COMMAND-ENDCOMMAND": {
 			"begin": "%COMMAND",
 			"beginCaptures": {
@@ -332,7 +335,7 @@
 					"name": "comment.line.edgecam-pp"
 				},
 				{
-					"match": "(?i)([\\S]+)(\\|)([^\\s\\\\/:*?<>\"\\|]+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})\\s*$", 
+					"match": "(?i)([\\S]+)(\\|)([^\\s\\\\/:*?<>\"\\|]+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})\\s*$",
 					"captures": {
 						"1": {
 							"name": "string.quoted.double.edgecam-pp"
@@ -385,9 +388,9 @@
 			],
 			"name": "invalid.illegal.commandline.edgecam-pp"
 		},
-		"MACRO-DEFINITION": {
-			"match": "\\s*(%MACRO)(=.*)",
-			"captures": {
+		"MAKRO-ENDM": {
+			"begin": "\\s*(%MACRO)(=[^*;]*)",
+			"beginCaptures": {
 				"1": {
 					"name": "keyword.others.proc-start.edgecam-pp"
 				},
@@ -397,16 +400,16 @@
 							"match": "=([^=]*)(=){0,1}([^=]*)(=){0,1}([^=]*)(=){0,1}([^=]*)(=){0,1}(.*)",
 							"captures": {
 								"1": {
-									"name":"entity.name.function.edgecam-pp"
+									"name": "entity.name.function.edgecam-pp"
 								},
 								"3": {
-									"name":"string.quoted.double.edgecam-pp"
+									"name": "string.quoted.double.edgecam-pp"
 								},
 								"5": {
 									"name": "string.quoted.double.edgecam-pp"
 								},
 								"7": {
-									"patterns":[
+									"patterns": [
 										{
 											"match": "[,\\[\\]\\|]",
 											"name": "keyword.operator.edgecam-pp"
@@ -415,7 +418,7 @@
 									"name": "constant.numeric.edgecam-pp"
 								},
 								"9": {
-									"patterns":[
+									"patterns": [
 										{
 											"match": "[/]",
 											"name": "keyword.operator.options-splitter.edgecam-pp"
@@ -428,7 +431,51 @@
 						}
 					]
 				}
-			}
+			},
+			"end": "\\s*%ENDM",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#COMMAND-ENDCOMMAND"
+				},
+				{
+					"include": "#comments"
+				}
+			],
+			"name": "invalid.illegal.commandline.edgecam-pp"
+		},
+		"PROCEDURE-ENDM": {
+			"begin": "\\s*(%PROCEDURE)(=)([\\S]+)\\s*$",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				},
+				"2": {
+					"name": "keyword.operator.edgecam-pp"
+				},
+				"3": {
+					"name": "entity.name.function.edgecam-pp"
+				}
+			},
+			"end": "\\s*%ENDM",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-line-proc"
+				},
+				{
+					"include": "#comments"
+				}
+			],
+			"name": "invalid.illegal.commandline.edgecam-pp"
 		}
 	}
 }
