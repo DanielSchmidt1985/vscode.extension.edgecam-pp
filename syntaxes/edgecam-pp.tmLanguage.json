@@ -320,7 +320,19 @@
 			},
 			"patterns": [
 				{
-					"match": "(\\S+)(\\|)(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})",
+					"match": "\\s*[\\*\\;]+.*$",
+					"name": "comment.line.edgecam-pp"
+				},
+				{
+					"match": "(?i)\\s*#VERSION:.*$",
+					"name": "comment.line.edgecam-pp"
+				},
+				{
+					"match": "(?i)\\s*Verb\\s+.*$",
+					"name": "comment.line.edgecam-pp"
+				},
+				{
+					"match": "(\\S+)(\\|)(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})\\s*$", 
 					"captures": {
 						"1": {
 							"name": "string.quoted.double.edgecam-pp"
@@ -337,7 +349,7 @@
 					}
 				},
 				{
-					"match": "(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){7,7})(.*)",
+					"match": "(?i)^\\s*(\\S+)\\s+((?:[-x]{0,1}[0-9]+\\s+){7,7})((?:on|off).*)",
 					"captures": {
 						"1": {
 							"name": "string.quoted.double.edgecam-pp"
@@ -371,7 +383,7 @@
 					}
 				}
 			],
-			"name": "string.quoted.double.edgecam-pp"
+			"name": "invalid.illegal.commandline.edgecam-pp"
 		},
 		"MACRO-DEFINITION": {
 			"match": "\\s*(%MACRO)(=.*)",
