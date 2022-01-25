@@ -302,7 +302,7 @@
 						"7": {
 							"patterns": [
 								{
-									"include":"#single-line-proc" // Hier weiter, der nimmt dann aber auch if
+									"include":"#single-line-proc" 
 								}
 							]
 						}
@@ -354,7 +354,7 @@
 			},
 			"patterns": [
 				{
-					"match": "\\s*[\\*\\;]+.*$",
+					"match": "\\s*[\\*]+.*$",
 					"name": "comment.line.edgecam-pp"
 				},
 				{
