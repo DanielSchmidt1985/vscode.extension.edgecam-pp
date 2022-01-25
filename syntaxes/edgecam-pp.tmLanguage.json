@@ -43,10 +43,6 @@
 				{
 					"match": "^\\s*;[^I][^F].*",
 					"name": "comment.line.edgecam-pp"
-				},
-				{
-					"match": ";.*",
-					"name": "comment.bloc.edgecam-pp"
 				}
 			]
 		},
@@ -272,7 +268,7 @@
 		"if": {
 			"patterns": [
 				{
-					"match": "(?i)\\s*(%if)\\s+([#$]{0,1}[a-z0-9]+)\\s*(<>|<=|>=|=|<|>)\\s*([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*(@[a-z0-9_-]*){0,1}(%then){0,1}\\s*",
+					"match": "(?i)\\s*(%if)\\s+([#$]{0,1}[a-z0-9]+)\\s*(<>|<=|>=|=|<|>)\\s*([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*(@[a-z0-9_-]*){0,1}(%then){0,1}\\s*(.*)",
 					"captures": {
 						"1": {
 							"name": "keyword.control.if.edgecam-pp"
@@ -285,7 +281,7 @@
 							]
 						},
 						"3": {
-							"name": "keyword.operator.edgecam-pp"
+							"name": "keyword.operator.if.edgecam-pp"
 						},
 						"4": {
 							"patterns": [
@@ -301,7 +297,14 @@
 							"name": "keyword.other.label-call-if.edgecam-pp"
 						},
 						"6": {
-							"name": "keyword.control.if.edgecam-pp"
+							"name": "keyword.control.then.edgecam-pp"
+						},
+						"7": {
+							"patterns": [
+								{
+									"include":"#single-line-proc" // Hier weiter, der nimmt dann aber auch if
+								}
+							]
 						}
 					}
 				}
@@ -317,7 +320,7 @@
 		"block-line-proc": {
 			"patterns": [
 				{
-					"match": "(^|:)([^:]*)",
+					"match": "(^|:)([^:;]*){0,1}(;.*){0,1}",
 					"captures": {
 						"1": {
 							"name": "keyword.operator.line-splitter.edgecam-pp"
@@ -328,6 +331,9 @@
 									"include": "#single-line-proc"
 								}
 							]
+						},
+						"3": {
+							"name": "comment.at-line-end.edgecam-pp"
 						}
 					}
 				}
