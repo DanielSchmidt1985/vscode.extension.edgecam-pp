@@ -8,24 +8,32 @@
 	"scopeName": "source.edgecam-pp",
 	"patterns": [
 		{
+			"include": "#template"
+		},
+		{
+			"include": "#if-template"
+		},
+		{
 			"include": "#comments"
+		},
+		{
+			"include": "#declare"
+		},
+		{
+			"include": "#include"
 		},
 		{
 			"include": "#MAKRO-ENDM"
 		},
 		{
 			"include": "#PROCEDURE-ENDM"
+		},
+		{
+			"match": ".*",
+			"name": "invalid.illegal.commandline.edgecam-pp"
 		}
 	],
 	"repository": {
-		"commas": {
-			"patterns": [
-				{
-					"match": ",",
-					"name": "punctuation.separator.list.comma.edgecam-pp"
-				}
-			]
-		},
 		"numbers": {
 			"patterns": [
 				{
@@ -39,75 +47,43 @@
 				{
 					"match": "^\\s*\\*.*",
 					"name": "comment.line.edgecam-pp"
+				}
+			]
+		},
+		"template": {
+			"patterns": [
+				{
+					"match": "(?i)^\\s*;template=.*",
+					"name": "support.function.edgecam-pp"
 				},
 				{
-					"match": "^\\s*;[^I][^F].*",
-					"name": "comment.line.edgecam-pp"
+					"match": "(?i)^\\s*;version\\^.*",
+					"name": "support.function.edgecam-pp"
 				}
 			]
 		},
-		"keywords-var": {
+		"if-template": {
 			"patterns": [
 				{
-					"match": "(?i)(%(?:declare|getcpl|load|output|cancel|output-if-changed|always-output|dont-output))\\s*(=)\\s*([#$,a-z0-9]*)",
-					"captures": {
-						"1": {
-							"name": "keyword.control.edgecam-pp"
-						},
-						"2": {
-							"name": "keyword.operator.edgecam-pp"
-						},
-						"3": {
-							"patterns": [
-								{
-									"include": "#var"
-								},
-								{
-									"include": "#variables"
-								}
-							]
-						}
-					}
-				}
-			]
-		},
-		"keywords": {
-			"patterns": [
-				{
-					"match": "(?i)%(?:data1|data2|nocycle|cxcycle)",
-					"name": "keyword.control.edgecam-pp"
+					"match": "(?i)^\\s*;IF TEMPLATE=.*",
+					"name": "support.function.edgecam-pp"
 				},
 				{
-					"match": "(?i)%(?:goto|if|then|else|endif)",
-					"name": "keyword.control.edgecam-pp"
+					"match": "(?i)^\\s*;ENDIF\\s*",
+					"name": "support.function.edgecam-pp"
 				}
 			]
 		},
-		"calls": {
+		"include": {
 			"patterns": [
 				{
-					"match": "(?i)(%call)\\s*=\\s*([a-z][a-z0-9_-]*)",
-					"captures": {
-						"1": {
-							"name": "keyword.control.call.edgecam-pp"
-						},
-						"2": {
-							"name": "entity.name.function.edgecam-pp"
-						}
-					}
-				}
-			]
-		},
-		"procedures": {
-			"patterns": [
-				{
-					"match": "(?i)^\\s*(%(?:MACHINE|INCLUDE))\\s*=\\s*(.*)\\s*",
+					"match": "(?i)^\\s*(%include)\\s*=\\s*(.*)",
 					"captures": {
 						"1": {
 							"name": "keyword.others.proc-start.edgecam-pp"
 						},
 						"2": {
-							"name": "entity.name.function.edgecam-pp"
+							"name": "constant.sha.git-rebase.edgecam-pp"
 						}
 					}
 				},
@@ -117,74 +93,33 @@
 				}
 			]
 		},
-		"functions": {
-			"patterns": [
-				{
-					"match": "(?i)(abs|sin|cos|tan|int|strlength|strcat|strmid|strtonum|numtostr)\\(",
-					"captures": {
-						"1": {
-							"name": "support.function.edgecam-pp"
-						}
-					}
-				}
-			]
-		},
 		"output": {
-			"begin": "<",
-			"beginCaptures": {
-				"0": {
-					"name": "string.quoted.double.edgecam-pp"
+			"match": "(<)([^<;]*)(>)",
+			"captures": {
+				"1": {
+					"name": "entity.name.label.edgecam-pp"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#output-vars"
+						},
+						{
+							"include": "#ascii-code"
+						}
+					],
+					"name": "entity.name.label.edgecam-pp"
+				},
+				"3": {
+					"name": "entity.name.label.edgecam-pp"
 				}
 			},
-			"end": ">",
-			"endCaptures": {
-				"0": {
-					"name": "string.quoted.double.edgecam-pp"
-				}
-			},
-			"name": "string.quoted.double.edgecam-pp",
-			"patterns": [
-				{
-					"include": "#output-vars"
-				},
-				{
-					"include": "#ascii-code"
-				}
-			]
-		},
-		"brackets-round": {
-			"begin": "\\(",
-			"beginCaptures": {
-				"0": {
-					"name": "other"
-				}
-			},
-			"end": "\\)",
-			"endCaptures": {
-				"0": {
-					"name": "other"
-				}
-			},
-			"name": "other",
-			"patterns": [
-				{
-					"include": "#commas"
-				},
-				{
-					"include": "#numbers"
-				},
-				{
-					"include": "#strings"
-				},
-				{
-					"include": "#var"
-				}
-			]
+			"name": "invalid.illegal.commandline.edgecam-pp"
 		},
 		"var": {
 			"patterns": [
 				{
-					"match": "(?i)[#$][a-z][a-z0-9]*",
+					"match": "(?i)[#$][a-z0-9]*",
 					"name": "variable.other.var.edgecam-pp"
 				},
 				{
@@ -193,53 +128,23 @@
 				}
 			]
 		},
-		"variables": {
+		"output-vars": {
 			"patterns": [
 				{
-					"match": "(?i)\\s*([^%][#$]*[a-z0-9]+)\\s*([=<>*+-/]{1,2})\\s*([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*",
+					"match": "(?i)([\\[])([^\\]]*)([\\]])",
 					"captures": {
 						"1": {
-							"patterns": [
-								{
-									"include": "#var"
-								}
-							]
-						},
-						"2": {
 							"name": "keyword.operator.edgecam-pp"
 						},
+						"2": {
+							"name": "meta.template.expression.edgecam-pp"
+						},
 						"3": {
-							"patterns": [
-								{
-									"include": "#numbers"
-								},
-								{
-									"match": "(?i)(.*[_].*)",
-									"name": "string.quoted.double.edgecam-pp"
-								},
-								{
-									"include": "#var"
-								}
-							]
+							"name": "keyword.operator.edgecam-pp"
 						}
 					}
 				}
 			]
-		},
-		"output-vars": {
-			"begin": "\\[",
-			"beginCaptures": {
-				"0": {
-					"name": "string.regexp.edgecam-pp"
-				}
-			},
-			"end": "\\]",
-			"endCaptures": {
-				"0": {
-					"name": "string.regexp.edgecam-pp"
-				}
-			},
-			"name": "string.regexp.edgecam-pp"
 		},
 		"strings": {
 			"patterns": [
@@ -257,6 +162,168 @@
 				}
 			]
 		},
+		"multi-var-numeric": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*([#]*[a-z0-9]*)(,){0,1}",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#var"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						}
+					}
+				}
+			]
+		},
+		"multi-var-str": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*([$][a-z0-9]*)(,){0,1}",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#var"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						}
+					}
+				}
+			]
+		},
+		"funcs-single-var": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%load|%getcpl|%loadins|%loadins2|%resetins)\\s*(=)\\s*([a-z0-9]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#var"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"declare": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%declare)\\s*(=)\\s*([$#a-z0-9,\\s]*$){1}",
+					"captures": {
+						"1": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#multi-var-numeric"
+								},
+								{
+									"include": "#multi-var-str"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"funcs-multi-var": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%output-if-changed|%always-output|%dont-output|%cancel)\\s*(=)\\s*([$#a-z0-9,]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#multi-var-numeric"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"funcs-file": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%outfile|%output)\\s*(=)\\s*(STANDARD|[$][a-z]{0,1}[a-z0-9]*){0,1}",
+					"captures": {
+						"1": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#var"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"calls": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%call)\\s*(=)\\s*([a-z][a-z0-9_-]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"name": "constant.sha.git-rebase.edgecam-pp"
+						}
+					}
+				}
+			]
+		},
+		"gotos": {
+			"patterns": [
+				{
+					"match": "(?i)\\s*(%goto)\\s*(@[a-z0-9_-]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.other.label.edgecam-pp"
+						}
+					}
+				}
+			]
+		},
 		"ascii-code": {
 			"patterns": [
 				{
@@ -265,29 +332,59 @@
 				}
 			]
 		},
+		"sys-func": {
+			"patterns": [
+				{
+					"match": "(?i)(strlength|strcat|strmid|strtonum|numtostr|abs|sin|cos|tan|int|atan|asin|acos|sqr)(\\()",
+					"captures": {
+						"1": {
+							"name": "support.function.sys-func.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						}
+					}
+				}
+			]
+		},
 		"set-var-right": {
-			"comment": "Called by #set-var-left",
 			"patterns": [
 				{
 					"include": "#strings"
 				},
 				{
-					"match": "(?i)([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*([=<>*+-/]{1,2}){0,1}\\s*(.*){0,1}",
+					"include": "#sys-func"
+				},
+				{
+					"match": "(?i)([(]*)([{]{0,1}[#$+-0-9]*\\.{0,1}[a-z0-9_-]*[}]{0,1})([)]*)\\s*([=<>*+-/]{1,2}){0,1}\\s*(.*){0,1}",
 					"captures": {
 						"1": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"2": {
 							"patterns": [
+								{
+									"match": "\\s*-\\s*",
+									"name": "keyword.operator.edgecam-pp"
+								},
 								{
 									"include": "#numbers"
 								},
 								{
 									"include": "#var"
+								},
+								{
+									"include": "#ascii-code"
 								}
 							]
 						},
-						"2": {
+						"3": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"4": {
 							"name": "keyword.operator.set-var.edgecam-pp"
 						},
-						"3": {
+						"5": {
 							"patterns": [
 								{
 									"include": "#set-var-right"
@@ -364,7 +461,7 @@
 						"7": {
 							"patterns": [
 								{
-									"include": "#set-var-left"
+									"include": "#single-line-proc"
 								}
 							]
 						}
@@ -378,12 +475,55 @@
 					"include": "#if"
 				},
 				{
+					"include": "#output"
+				},
+				{
+					"include": "#calls"
+				},
+				{
+					"include": "#funcs-single-var"
+				},
+				{
+					"include": "#funcs-multi-var"
+				},
+				{
+					"include": "#funcs-file"
+				},
+				{
+					"include": "#gotos"
+				},
+				{
+					"include": "#lables"
+				},
+				{
 					"include": "#set-var-left"
 				}
 			]
 		},
 		"block-line-proc": {
 			"patterns": [
+				{
+					"match": "(?:)\\s*(.*%THEN){0,1}\\s*(:){0,1}\\s*(<[^<:;]*:[^<;]*>)\\s*",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#single-line-proc"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#single-line-proc"
+								}
+							]
+						}
+					}
+				},
 				{
 					"match": "(^|:)([^:;]*){0,1}(;.*){0,1}",
 					"captures": {
@@ -496,7 +636,7 @@
 							"match": "=([^=]*)(=){0,1}([^=]*)(=){0,1}([^=]*)(=){0,1}([^=]*)(=){0,1}(.*)",
 							"captures": {
 								"1": {
-									"name": "entity.name.function.edgecam-pp"
+									"name": "constant.sha.git-rebase.edgecam-pp"
 								},
 								"3": {
 									"name": "string.quoted.double.edgecam-pp"
@@ -539,6 +679,9 @@
 					"include": "#COMMAND-ENDCOMMAND"
 				},
 				{
+					"include": "#if-template"
+				},
+				{
 					"include": "#comments"
 				},
 				{
@@ -557,7 +700,7 @@
 					"name": "keyword.operator.edgecam-pp"
 				},
 				"3": {
-					"name": "entity.name.function.edgecam-pp"
+					"name": "constant.sha.git-rebase.edgecam-pp"
 				}
 			},
 			"end": "\\s*%ENDM",
@@ -567,6 +710,9 @@
 				}
 			},
 			"patterns": [
+				{
+					"include": "#if-template"
+				},
 				{
 					"include": "#comments"
 				},
