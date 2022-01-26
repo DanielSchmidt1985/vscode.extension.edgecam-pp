@@ -265,10 +265,69 @@
 				}
 			]
 		},
+		"set-var-right": {
+			"comment": "Called by #set-var-left",
+			"patterns": [
+				{
+					"include": "#strings"
+				},
+				{
+					"match": "(?i)([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*([=<>*+-/]{1,2}){0,1}\\s*(.*){0,1}",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#numbers"
+								},
+								{
+									"include": "#var"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator.set-var.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#set-var-right"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"set-var-left": {
+			"patterns": [
+				{
+					"match": "(?i)([#$]*[a-z0-9]+)\\s*(=)\\s*(.*)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#var"
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#set-var-right"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
 		"if": {
 			"patterns": [
 				{
-					"match": "(?i)\\s*(%if)\\s+([#$]{0,1}[a-z0-9]+)\\s*(<>|<=|>=|=|<|>)\\s*([#$+-0-9]*\\.{0,1}[a-z0-9_-]*)\\s*(@[a-z0-9_-]*){0,1}(%then){0,1}\\s*(.*)",
+					"match": "(?i)\\s*(%if)\\s+([#$]{0,1}[a-z0-9]+)\\s*(<>|<=|>=|=|<|>)\\s*([\"#$+-0-9]*\\.{0,1}[\"a-z0-9_-]*)\\s*(@[a-z0-9_-]*){0,1}(%then){0,1}\\s*(.*)",
 					"captures": {
 						"1": {
 							"name": "keyword.control.if.edgecam-pp"
@@ -290,6 +349,9 @@
 								},
 								{
 									"include": "#numbers"
+								},
+								{
+									"include": "#strings"
 								}
 							]
 						},
@@ -302,7 +364,7 @@
 						"7": {
 							"patterns": [
 								{
-									"include":"#single-line-proc" 
+									"include": "#set-var-left"
 								}
 							]
 						}
@@ -314,6 +376,9 @@
 			"patterns": [
 				{
 					"include": "#if"
+				},
+				{
+					"include": "#set-var-left"
 				}
 			]
 		},
