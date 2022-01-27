@@ -12,6 +12,21 @@
 		],
 		"description": "Add the body for a EDGECAM cgs"
 	},
+	"ec-debug": {
+		"prefix": "ec-debug",
+		"body": [
+			"<#${1:Parameter}=[#${1:Parameter}=!FT_DEBUGREAL]>"
+		],
+		"description": "Add Parameter Feedback"
+	},
+	"ec-funny": {
+		"prefix": "ec-funny",
+		"body": [
+			"%IF #${1:Parameter} = #FUNNY %THEN <#${1:Parameter} is Funny>",
+			"%IF #${1:Parameter} = 0 %THEN <#${1:Parameter} is Zero>"
+		],
+		"description": "#Funny or Zero ?"
+	},
 	"ec-proc": {
 		"prefix": "ec-proc",
 		"body": [
@@ -20,12 +35,12 @@
 			"* IN ...: ",
 			"* OUT ..: ",
 			"%PROCEDURE=${1:Procname}",
-            "    %IF #PROCTRACE=1 %THEN $$PROCEDURE=\"${1:Procname}\": %CALL=ENTER_PROCEDURE",
+			"    %IF #PROCTRACE=1 %THEN $$PROCEDURE=\"${1:Procname}\": %CALL=ENTER_PROCEDURE",
 			"",
 			"    $0",
 			"",
 			"    @end",
-    		"    %IF #PROCTRACE=1 %THEN %CALL=EXIT_PROCEDURE",
+			"    %IF #PROCTRACE=1 %THEN %CALL=EXIT_PROCEDURE",
 			"%ENDM",
 			"",
 			""
@@ -39,7 +54,7 @@
 			"* ${3:Description}",
 			"******************************************************************************",
 			"%MACRO=${1:Number}=..=${2:Name}=15,500,501,502,503,504,",
-            "    %COMMAND",
+			"    %COMMAND",
 			"    #Version:1",
 			"    Verb 2050",
 			"        ${2:Name}|VS-JustMods ${1:Number}   2   0   0   0   0",
@@ -49,7 +64,7 @@
 			"            Eilgänge_als                503 x2004   x400    0   0   0   0   On,1",
 			"            Hohe_Vorschubrate           504 x0001   x400    0   0   0   0   On,2000",
 			"            Comment                     15  x0420   x8000   0   0   0   4   On,",
-    		"    %ENDCOMMAND",
+			"    %ENDCOMMAND",
 			"",
 			"    $SPC=\" \"; Reset trace spacing",
 			"    #MACRO=${1:Number}",
