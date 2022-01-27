@@ -29,6 +29,15 @@
 			"include": "#PROCEDURE-ENDM"
 		},
 		{
+			"include": "#MACHINE-ENDMACH"
+		},
+		{
+			"include": "#FORMAT-ENDF"
+		},
+		{
+			"include": "#DATA"
+		},
+		{
 			"match": ".*",
 			"name": "invalid.illegal.commandline.edgecam-pp"
 		}
@@ -49,6 +58,37 @@
 					"captures": {
 						"0": {
 							"name": "comment.line.edgecam-pp"
+						}
+					},
+					"name": "markup.italic.edgecam-pp"
+				}
+			]
+		},
+		"DATA": {
+			"patterns": [
+				{
+					"match": "^\\s*(%DATA[1-6])(=)(.*)",
+					"captures": {
+						"1": {
+							"name": "keyword.controls.proc-start.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"match": "([\\s+.0-9-]*)(,){0,1}",
+									"captures": {
+										"1": {
+											"name": "constant.numeric.edgecam-pp"
+										},
+										"2": {
+											"name": "keyword.operator.edgecam-pp"
+										}
+									}
+								}
+							]
 						}
 					},
 					"name": "markup.italic.edgecam-pp"
@@ -867,6 +907,62 @@
 				},
 				{
 					"include": "#block-line-proc"
+				}
+			]
+		},
+		"MACHINE-ENDMACH": {
+			"begin": "\\s*(%MACHINE)(=)(.*)$",
+			"beginCaptures": {
+				"0": {
+					"name": "markup.underline.edgecam-pp"
+				},
+				"1": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				},
+				"2": {
+					"name": "keyword.operator.edgecam-pp"
+				},
+				"3": {
+					"name": "constant.sha.git-rebase.edgecam-pp"
+				}
+			},
+			"end": "\\s*(%ENDMACH)",
+			"endCaptures": {
+				"0": {
+					"name": "markup.underline.edgecam-pp"
+				},
+				"1": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#comments"
+				}
+			]
+		},
+		"FORMAT-ENDF": {
+			"begin": "\\s*(%FORMAT)//s*$",
+			"beginCaptures": {
+				"0": {
+					"name": "markup.underline.edgecam-pp"
+				},
+				"1": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"end": "\\s*(%ENDF)",
+			"endCaptures": {
+				"0": {
+					"name": "markup.underline.edgecam-pp"
+				},
+				"1": {
+					"name": "keyword.others.proc-start.edgecam-pp"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#comments"
 				}
 			]
 		}
