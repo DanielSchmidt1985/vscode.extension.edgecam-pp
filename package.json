@@ -2,7 +2,7 @@
 	"name": "edgecam-pp",
 	"displayName": "%displayName%",
 	"description": "%description%",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"publisher": "DanielSchmidt1985",
 	"license": "MIT",
 	"icon": "images/icon.png",
@@ -16,6 +16,12 @@
 		"languages": [
 			{
 				"id": "edgecam-pp",
+				"snippets": [
+					{
+						"language": "edgecam-pp",
+						"path": "./snippets/snippets.json"
+					}
+				],
 				"aliases": [
 					"EDGECAM Postprocessor"
 				],
