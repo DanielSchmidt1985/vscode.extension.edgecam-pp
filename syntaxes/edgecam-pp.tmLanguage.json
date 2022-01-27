@@ -131,10 +131,6 @@
 							"name": "constant.sha.git-rebase.edgecam-pp"
 						}
 					}
-				},
-				{
-					"match": "(?i)^\\s*%(?:FORMAT|ENDMACH|ENDM|ENDF)",
-					"name": "keyword.others.proc-end.edgecam-pp"
 				}
 			]
 		},
@@ -273,7 +269,7 @@
 		"declare": {
 			"patterns": [
 				{
-					"match": "(?i)\\s*(%declare)\\s*(=)\\s*([$#a-z0-9,\\s]*$){1}",
+					"match": "(?i)\\s*(%declare)\\s*(=)\\s*([$#a-z0-9,\\s]*){1}\\s*((?:;|$).*$)",
 					"captures": {
 						"1": {
 							"name": "keyword.control.call.edgecam-pp"
@@ -290,6 +286,9 @@
 									"include": "#multi-var-str"
 								}
 							]
+						},
+						"4": {
+							"name": "comment.line.edgecam-pp"
 						}
 					}
 				}
@@ -714,7 +713,7 @@
 			]
 		},
 		"COMMAND-ENDCOMMAND": {
-			"begin": "\\s*(%COMMAND)\\s*",
+			"begin": "(?i)\\s*(%COMMAND)\\s*",
 			"beginCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -723,7 +722,7 @@
 					"name": "keyword.others.command-start.edgecam-pp"
 				}
 			},
-			"end": "\\s*(%ENDCOMMAND)\\s*",
+			"end": "(?i)\\s*(%ENDCOMMAND)\\s*",
 			"endCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -803,7 +802,7 @@
 			"name": "invalid.illegal.commandline.edgecam-pp"
 		},
 		"MAKRO-ENDM": {
-			"begin": "\\s*(%MACRO)(=[^*;]*)\\s*$",
+			"begin": "(?i)\\s*(%MACRO)(=[^*;]*)\\s*$",
 			"beginCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -849,7 +848,7 @@
 					]
 				}
 			},
-			"end": "\\s*(%ENDM)",
+			"end": "(?i)\\s*(%ENDM)",
 			"endCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -874,7 +873,7 @@
 			]
 		},
 		"PROCEDURE-ENDM": {
-			"begin": "\\s*(%PROCEDURE)(=)([\\S]+)\\s*$",
+			"begin": "(?i)\\s*(%PROCEDURE)(=)([\\S]+)\\s*$",
 			"beginCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -889,7 +888,7 @@
 					"name": "constant.sha.git-rebase.edgecam-pp"
 				}
 			},
-			"end": "\\s*(%ENDM)",
+			"end": "(?i)\\s*(%ENDM)",
 			"endCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -911,7 +910,7 @@
 			]
 		},
 		"MACHINE-ENDMACH": {
-			"begin": "\\s*(%MACHINE)(=)(.*)$",
+			"begin": "(?i)\\s*(%MACHINE)(=)(.*)$",
 			"beginCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -926,7 +925,7 @@
 					"name": "constant.sha.git-rebase.edgecam-pp"
 				}
 			},
-			"end": "\\s*(%ENDMACH)",
+			"end": "(?i)\\s*(%ENDMACH)",
 			"endCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -938,11 +937,79 @@
 			"patterns": [
 				{
 					"include": "#comments"
+				},
+				{
+					"match": "(?i)^\\s*(M[TPSG])(=)(.*)",
+					"captures": {
+						"1": {
+							"name": "keyword.controls.proc-start.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"match": "([^,]*)(,){0,1}",
+									"captures": {
+										"1": {
+											"name": "constant.numeric.edgecam-pp"
+										},
+										"2": {
+											"name": "keyword.operator.edgecam-pp"
+										}
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(?i)^\\s*(Q[0-9]{1,3})\\s*(=)\\s*(_radio|_list|_check|_\\$text|_real|_int|_separator)\\s*(=)\\s*([^\\[]*)(\\[)((?:[0-9]{1,4},?)*)([\\]])",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.namespace.edgecam-pp"
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"name": "keyword.control.call.edgecam-pp"
+						},
+						"4": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"5": {
+							"name": "string.quoted.double.edgecam-pp"
+						},
+						"6": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"7": {
+							"patterns": [
+								{
+									"match": "([\\s+.0-9-]*)(,){0,1}",
+									"captures": {
+										"1": {
+											"name": "constant.numeric.edgecam-pp"
+										},
+										"2": {
+											"name": "keyword.operator.edgecam-pp"
+										}
+									}
+								}
+							]
+						},
+						"8": {
+							"name": "keyword.operator.edgecam-pp"
+						}
+					}
 				}
-			]
+			],
+			"name": "invalid.illegal.commandline.edgecam-pp"
 		},
 		"FORMAT-ENDF": {
-			"begin": "\\s*(%FORMAT)//s*$",
+			"begin": "\\s*(%FORMAT)",
 			"beginCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -962,7 +1029,36 @@
 			},
 			"patterns": [
 				{
-					"include": "#comments"
+					"match": "\\s*([^;]*)\\s*([;])\\s*([0-9]+)\\s*([(][^)]*[)])(.*)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"match": "([^,]*)(,){0,1}",
+									"captures": {
+										"1": {
+											"name": "constant.numeric.edgecam-pp"
+										},
+										"2": {
+											"name": "keyword.operator.edgecam-pp"
+										}
+									}
+								}
+							]
+						},
+						"2": {
+							"name": "keyword.operator.edgecam-pp"
+						},
+						"3": {
+							"name": "constant.numeric.edgecam-pp"
+						},
+						"4": {
+							"name": "support.function.edgecam-pp"
+						},
+						"5": {
+							"name": "string.quoted.double.edgecam-pp"
+						}
+					}
 				}
 			]
 		}

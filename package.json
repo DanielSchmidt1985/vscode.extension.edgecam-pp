@@ -2,7 +2,7 @@
 	"name": "edgecam-pp",
 	"displayName": "%displayName%",
 	"description": "%description%",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"publisher": "DanielSchmidt1985",
 	"license": "MIT",
 	"icon": "images/icon.png",
