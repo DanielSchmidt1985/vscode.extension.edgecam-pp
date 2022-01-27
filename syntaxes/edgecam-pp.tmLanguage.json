@@ -45,7 +45,7 @@
 		"comments": {
 			"patterns": [
 				{
-					"match": "^\\s*\\*.*",
+					"match": "^\\s*[*;].*",
 					"captures": {
 						"0": {
 							"name": "comment.line.edgecam-pp"
@@ -706,7 +706,7 @@
 					"name": "comment.line.edgecam-pp"
 				},
 				{
-					"match": "(?i)([\\S]+)(\\|)([^\\s\\\\/:*?<>\"\\|]+)\\s+((?:[-x]{0,1}[0-9]+\\s+){6,6})\\s*$",
+					"match": "(?i)([\\S]+)(\\|)([^\\s\\\\/:*?<>\"\\|]+)\\s+((?:[-x]{0,1}[0-9]+\\s+){5,6})\\s*$",
 					"captures": {
 						"1": {
 							"name": "string.quoted.double.edgecam-pp"
