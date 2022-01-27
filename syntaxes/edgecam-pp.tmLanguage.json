@@ -674,15 +674,21 @@
 			]
 		},
 		"COMMAND-ENDCOMMAND": {
-			"begin": "%COMMAND",
+			"begin": "\\s*(%COMMAND)\\s*",
 			"beginCaptures": {
 				"0": {
-					"name": "keyword.others.proc-start.edgecam-pp"
+					"name": "markup.underline.edgecam-pp"
+				},
+				"1": {
+					"name": "keyword.others.command-start.edgecam-pp"
 				}
 			},
-			"end": "%ENDCOMMAND",
+			"end": "\\s*(%ENDCOMMAND)\\s*",
 			"endCaptures": {
 				"0": {
+					"name": "markup.underline.edgecam-pp"
+				},
+				"1": {
 					"name": "keyword.others.proc-start.edgecam-pp"
 				}
 			},
@@ -739,8 +745,11 @@
 										"3": {
 											"patterns": [
 												{
-													"match": "[+-]{0,1}[\\d.]+",
-													"name": "constant.numeric.edgecam-pp"
+													"include": "#numbers"
+												},
+												{
+													"match": ".*",
+													"name": "string.quoted.double.edgecam-pp"
 												}
 											]
 										}
@@ -754,7 +763,7 @@
 			"name": "invalid.illegal.commandline.edgecam-pp"
 		},
 		"MAKRO-ENDM": {
-			"begin": "\\s*(%MACRO)(=[^*;]*)",
+			"begin": "\\s*(%MACRO)(=[^*;]*)\\s*$",
 			"beginCaptures": {
 				"0": {
 					"name": "markup.underline.edgecam-pp"
@@ -795,7 +804,7 @@
 									"name": "string.quoted.double.edgecam-pp"
 								}
 							},
-							"name": "keyword.operator.macro-splitter.edgecam-pp"
+							"name": "markup.underline.edgecam-pp"
 						}
 					]
 				}
@@ -822,8 +831,7 @@
 				{
 					"include": "#block-line-proc"
 				}
-			],
-			"name": "invalid.illegal.commandline.edgecam-pp"
+			]
 		},
 		"PROCEDURE-ENDM": {
 			"begin": "\\s*(%PROCEDURE)(=)([\\S]+)\\s*$",
@@ -860,8 +868,7 @@
 				{
 					"include": "#block-line-proc"
 				}
-			],
-			"name": "invalid.illegal.commandline.edgecam-pp"
+			]
 		}
 	}
 }

@@ -20,13 +20,15 @@
 			"* IN ...: ",
 			"* OUT ..: ",
 			"%PROCEDURE=${1:Procname}",
-            "    %IF #PROCTRACE=1 %THEN $$PROCEDURE=${1:Procname}:%CALL=ENTER_PROCEDURE",
+            "    %IF #PROCTRACE=1 %THEN $$PROCEDURE=\"${1:Procname}\": %CALL=ENTER_PROCEDURE",
 			"",
 			"    $0",
 			"",
 			"    @end",
     		"    %IF #PROCTRACE=1 %THEN %CALL=EXIT_PROCEDURE",
-			"%ENDM"
+			"%ENDM",
+			"",
+			""
 		],
 		"description": "Add the body for a Procedure"
 	},
@@ -39,7 +41,7 @@
 			"%MACRO=${1:Number}=..=${2:Name}=15,500,501,502,503,504,",
             "    %COMMAND",
 			"    #Version:1",
-			"    Verb 2015",
+			"    Verb 2050",
 			"        ${2:Name}|VS-JustMods ${1:Number}   2   0   0   0   0",
 			"            Spindel_Achsbezeichnung     500 x0420   x400    0   0   0   0   On,SPI1",
 			"            Schneidenstartwinkel        501 x2004   x400    0   0   0   0   Off",
@@ -58,7 +60,9 @@
 			"    $0",
 			"    ",
 			"    @ENDE",
-			"%ENDM"
+			"%ENDM",
+			"",
+			""
 		],
 		"description": "Add the body for a MACRO"
 	}
