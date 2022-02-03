@@ -209,7 +209,7 @@
 		"multi-var-numeric": {
 			"patterns": [
 				{
-					"match": "(?i)\\s*([#]*[a-z0-9]*)(,){0,1}",
+					"match": "(?i)\\s*([#][a-z0-9]*)(,){0,1}",
 					"captures": {
 						"1": {
 							"patterns": [
