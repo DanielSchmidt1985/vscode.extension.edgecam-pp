@@ -19,14 +19,6 @@
 		],
 		"description": "Add Parameter Feedback"
 	},
-	"ec-funny": {
-		"prefix": "ec-funny",
-		"body": [
-			"%IF #${1:Parameter} = #FUNNY %THEN <#${1:Parameter} is Funny>",
-			"%IF #${1:Parameter} = 0 %THEN <#${1:Parameter} is Zero>"
-		],
-		"description": "#Funny or Zero ?"
-	},
 	"ec-proc": {
 		"prefix": "ec-proc",
 		"body": [
