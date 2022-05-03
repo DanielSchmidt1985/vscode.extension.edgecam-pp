@@ -72,5 +72,25 @@
 			""
 		],
 		"description": "Add the body for a MACRO"
+	},
+	"ec-if-goto-2fach": {
+		"prefix": "ec-if-goto-2fach",
+		"body": [
+			"%IF ${1:Var1}=${2:Val1} %THEN %GOTO @${3:Jump1}",
+			"%IF ${4:Var2}=${5:Val2} %THEN %GOTO @${6:Jump2}",
+			"%GOTO @${7:JumpEnd}",
+			"",
+			"@${3:Jump1}",
+			"    $0",
+			"%GOTO @${7:JumpEnd}",
+			"",
+			"@${3:Jump2}",
+			"    ",
+			"%GOTO @${7:JumpEnd}",
+			"",
+			"@${7:JumpEnd}",
+			""
+		],
+		"description": "Add the body for a MACRO"
 	}
 }
