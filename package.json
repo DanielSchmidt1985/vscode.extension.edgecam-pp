@@ -2,7 +2,7 @@
 	"name": "edgecam-pp",
 	"displayName": "%displayName%",
 	"description": "%description%",
-	"version": "1.8.0",
+	"version": "1.10.0",
 	"publisher": "DanielSchmidt1985",
 	"license": "MIT",
 	"icon": "images/icon.png",
@@ -19,7 +19,15 @@
 		"snippets": [
 			{
 				"language": "edgecam-pp",
-				"path": "./snippets/snippets.json"
+				"path": "./snippets/edgecam.json"
+			},
+			{
+				"language": "ini",
+				"path": "./snippets/ini.json"
+			},
+			{
+				"language": "javascript",
+				"path": "./snippets/javascript.json"
 			}
 		],
 		"languages": [
@@ -56,11 +64,13 @@
 		"url": "https://github.com/DanielSchmidt1985/vscode.extension.edgecam-pp"
 	},
 	"__metadata": {
-		"installedTimestamp": 1643267102522,
 		"id": "233bb859-57fa-4b1f-9562-49f29845cc59",
 		"publisherId": "5995be7e-9fc5-47fe-95b7-763e81e5a99d",
 		"publisherDisplayName": "Daniel Schmidt",
+		"targetPlatform": "undefined",
+		"updated": false,
 		"isPreReleaseVersion": false,
-		"preRelease": false
+		"preRelease": false,
+		"installedTimestamp": 1651685062544
 	}
 }
