@@ -131,7 +131,7 @@
             "#                                       {VERB} = Instruction verb",
             "#                                       {NOUN} = Instruction noun",
             "# NEXT_FEED_SPEED       = This command will provide the System variables XYFEED, ZFEED, FEED,",
-            "#                         SPEED inner the toolchange code constructors.",
+            "#                         NEXTSPEED inner the toolchange code constructors.",
             "#                         The variables will be filled by the next programmed technology data,",
             "#                         which followes after your current tool inner the EDGECAM Sequence.",
             "#                         It also handles the approaching COOLANT and THROUGHCOOLANT",
