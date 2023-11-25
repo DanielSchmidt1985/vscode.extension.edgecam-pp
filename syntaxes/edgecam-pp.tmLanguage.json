@@ -465,13 +465,6 @@
 						},
 						"4": {
 							"name": "keyword.operator.set-var.edgecam-pp"
-						},
-						"5": {
-							"patterns": [
-								{
-									"include": "#set-var-right"
-								}
-							]
 						}
 					}
 				}
