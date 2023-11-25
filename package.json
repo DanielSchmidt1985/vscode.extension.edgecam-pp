@@ -1,0 +1,77 @@
+{
+	"name": "edgecam-pp",
+	"displayName": "%displayName%",
+	"description": "%description%",
+	"version": "1.12.0",
+	"publisher": "DanielSchmidt1985",
+	"license": "MIT",
+	"icon": "images/icon.png",
+	"engines": {
+		"vscode": "0.10.x"
+	},
+	"scripts": {
+		"update-grammar": "node ../node_modules/vscode-grammar-updater/bin atom/language-css grammars/css.cson ./syntaxes/css.tmLanguage.json"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"contributes": {
+		"snippets": [
+			{
+				"language": "edgecam-pp",
+				"path": "./snippets/edgecam.json"
+			},
+			{
+				"language": "ini",
+				"path": "./snippets/ini.json"
+			},
+			{
+				"language": "javascript",
+				"path": "./snippets/javascript.json"
+			}
+		],
+		"languages": [
+			{
+				"id": "edgecam-pp",
+				"aliases": [
+					"EDGECAM Postprocessor"
+				],
+				"extensions": [
+					".cxt",
+					".mxt",
+					".cgs",
+					".cgi"
+				],
+				"mimetypes": [
+					"text/edgecam-pp"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "edgecam-pp",
+				"scopeName": "source.edgecam-pp",
+				"path": "./syntaxes/edgecam-pp.tmLanguage.json",
+				"tokenTypes": {
+					"meta.function.url string.quoted": "other"
+				}
+			}
+		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DanielSchmidt1985/vscode.extension.edgecam-pp"
+	},
+	"__metadata": {
+		"id": "233bb859-57fa-4b1f-9562-49f29845cc59",
+		"publisherId": "5995be7e-9fc5-47fe-95b7-763e81e5a99d",
+		"publisherDisplayName": "Daniel Schmidt",
+		"targetPlatform": "undefined",
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"preRelease": false,
+		"installedTimestamp": 1661846469492,
+		"isApplicationScoped": false
+	}
+}

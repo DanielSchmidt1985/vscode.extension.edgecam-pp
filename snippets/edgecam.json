@@ -1,0 +1,96 @@
+{
+	"ec-cgs": {
+		"prefix": "ec-cgs",
+		"body": [
+			";Template=AUTOMILL=${1:Machinename}",
+			";VERSION^${1:Machinename}^${2:2020.0.0}^${3:03.05.2019}^DS",
+			"",
+			"* Common Procedures",
+			"%INCLUDE=CGE_Include\\Common.cgi",
+			"",
+			"$0"
+		],
+		"description": "Add the body for a EDGECAM cgs"
+	},
+	"ec-debug": {
+		"prefix": "ec-debug",
+		"body": [
+			"<#${1:Parameter}=[#${1:Parameter}=!FT_DEBUGREAL]>"
+		],
+		"description": "Add Parameter Feedback"
+	},
+	"ec-proc": {
+		"prefix": "ec-proc",
+		"body": [
+			"******************************************************************************",
+			"* Description",
+			"* IN ...: ",
+			"* OUT ..: ",
+			"%PROCEDURE=${1:Procname}",
+			"    %IF #PROCTRACE=1 %THEN $$PROCEDURE=\"${1:Procname}\": %CALL=ENTER_PROCEDURE",
+			"",
+			"    $0",
+			"",
+			"    @end",
+			"    %IF #PROCTRACE=1 %THEN %CALL=EXIT_PROCEDURE",
+			"%ENDM",
+			"",
+			""
+		],
+		"description": "Add the body for a Procedure"
+	},
+	"ec-macro": {
+		"prefix": "ec-macro",
+		"body": [
+			"******************************************************************************",
+			"* ${3:Description}",
+			"******************************************************************************",
+			"%MACRO=${1:Number}=..=${2:Name}=15,500,501,502,503,504,",
+			"    %COMMAND",
+			"    #Version:1",
+			"    Verb 2050",
+			"        ${2:Name}|VS-JustMods ${1:Number}   2   0   0   0   0",
+			"            Spindel_Achsbezeichnung     500 x0420   x400    0   0   0   0   On,SPI1",
+			"            Schneidenstartwinkel        501 x2004   x400    0   0   0   0   Off",
+			"            SPOS_(Referenzwert)         502 x2004   x400    0   0   0   0   On,1",
+			"            Eilgänge_als                503 x2004   x400    0   0   0   0   On,1",
+			"            Hohe_Vorschubrate           504 x0001   x400    0   0   0   0   On,2000",
+			"            Comment                     15  x0420   x8000   0   0   0   4   On,",
+			"    %ENDCOMMAND",
+			"",
+			"    $SPC=\" \"; Reset trace spacing",
+			"    #MACRO=${1:Number}",
+			"    %IF NOCYCLE=0 %THEN #EXECMACRO=#MACRO",
+			"    %CALL=CODECON_BREAKOUT",
+			"    %IF #NCSUPPRESS=1 %THEN MASK=1",
+			"    ",
+			"    $0",
+			"    ",
+			"    @ENDE",
+			"%ENDM",
+			"",
+			""
+		],
+		"description": "Add the body for a MACRO"
+	},
+	"ec-if-goto-2fach": {
+		"prefix": "ec-if-goto-2fach",
+		"body": [
+			"%IF ${1:Var1}=${2:Val1} %THEN %GOTO @${3:Jump1}",
+			"%IF ${4:Var2}=${5:Val2} %THEN %GOTO @${6:Jump2}",
+			"%GOTO @${7:JumpEnd}",
+			"",
+			"@${3:Jump1}",
+			"    $0",
+			"%GOTO @${7:JumpEnd}",
+			"",
+			"@${6:Jump2}",
+			"    ",
+			"%GOTO @${7:JumpEnd}",
+			"",
+			"@${7:JumpEnd}",
+			""
+		],
+		"description": "Add the body for a MACRO"
+	}
+}

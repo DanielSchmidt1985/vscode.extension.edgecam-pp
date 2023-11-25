@@ -1,0 +1,169 @@
+{
+    // Place your snippets for ini here. Each snippet is defined under a snippet name and has a prefix, body and 
+    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+    // same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    "ec-justmods-opts": {
+        "prefix": "ec-justmods-opts",
+        "body": [
+            "# JUSTMODS",
+            "# Define list modifier for vsJustModsPlugin",
+            "# verb       = verb",
+            "# noun       = noun",
+            "# mod        = modifier number",
+            "# options    = list options, as usual A^B^C",
+            "# returntype = PDI list modifier return type: 1 - value, 2 - string",
+            "#              using this, either UNVAR5xx or USVAR5xx can be used to retrieve the selected item",
+            "[JUSTMODS]",
+            "verb        = ${2:verb}",
+            "noun        = ${3:noun}",
+            "mod         = ${4:mod}",
+            "options     = ${5:options}",
+            "returntype  = 1",
+            "",
+            "$0"
+        ],
+        "description": "JustMods Options"
+    },
+    "ec-justmods-text": {
+        "prefix": "ec-justmods-text",
+        "body": [
+            "# Automatically set a text modifier (e.g. 15/comment) to a string built from modifier values",
+            "# dstmod    destination modifier",
+            "# format    format string. Note that only strings are used to build the result string",
+            "# srcmods   source modifiers, separated by space. If a list/radio modifier should used with the text value, use a trailing 's', like in 510s",
+            "[JUSTMODS]",
+            "verb        = ${2:verb}",
+            "noun        = ${3:noun}",
+            "dstmod      = 15",
+            "format      = $0{0} {1}",
+            "srcmods     = 500s 510",
+            "",
+            ""
+        ],
+        "description": "JustMods Text"
+    },
+    "ec-generatencevent": {
+        "prefix": "ec-generatencevent",
+        "body": [
+            "[GENERATENCEVENT]",
+            "RUN_BEFORE     =",
+            "RUN_DURING     =",
+            "RUN_AFTER      =$0",
+            "",
+            ""
+        ],
+        "description": "Generate NC Event"
+    },
+    "ec-handleposttemplate": {
+        "prefix": "ec-handleposttemplate",
+        "body": [
+            "#",
+            "# HandlePostTemplate Configuration",
+            "#",
+            "# vsTemplate            = Defines the template-file that should be used instead of the default template",
+            "# vsSplitNcFile         = Calls a function of vsSplitNcFilePlugin.dll to split the nc-output",
+            "#                         Possible values: ",
+            "#                           - Siemens840D",
+            "# stdReduceSubPrograms  = Calls a function of ReduceSubprogramsPlugin.dll optimize subprograms with the same content ",
+            "#                         You can let the parameter blank if the postname is clear. (Using Post specific ini)",
+            "#                         stdReduceSubPrograms =",
+            "# stdDeleteParameterTmp = The file parameters.tmp is deleted by default. By writing this parameter with value no, ",
+            "#                         the deletion of parameters.tmp is suppressed",
+            "#                         Possible Values:",
+            "#                           - no",
+            "# stdDeleteTmpNcFiles   = temporary nc-files that are inserted by the plugin are deleted by default.",
+            "#                         By writing this parameter with value no, the deletion of these files is suppressed.",
+            "#                         Possible Values:",
+            "#                           - no",
+            "# AlterLineNumbers      = This option will alter the Line Numbers of the resulting NC File. ",
+            "#                         The algorytm keep the Line number increment.",
+            "# LineNumberFormat      = OPTIONAL with AlterLineNumbers - Use this command to define the output format of the new line numbers.",
+            "#                         For Example: ",
+            "#                         LineNumberFormat={0:00000}",
+            "#                         gives lines like N00100 ..",
+            "#                         Note that, if you use this command, the {0:.....} is fix!",
+            "# ExecuteBatchAfter     = This option gives possibility to executes a batch file after processing all.",
+            "#                         The batch file will be usually created from the pp.",
+            "#                         Example:",
+            "#                         ExecuteBatchAfter=Clean.bat",
+            "# REORDERCOORDS         = Activates the ordering of corrdinates like: Z+0 Y+0 X+0 => X+0 Y+0 Z+0",
+            "#                         This is usefull if posts switches the Axis prefixes to get an cleaner nc code",
+            "# REORDERSUBS           = Complex Function see Confluence",
+            "# AnyParam              = You can insert any parameter to parameters.tmp using the ini",
+            "#                         Note that the values can be overridden by the post",
+            "[HANDLEPOSTTEMPLATE]",
+            ""
+        ],
+        "description": "Handle Post Template"
+    }
+    ,
+    "ec-enrichpamscl": {
+        "prefix": "ec-enrichpamscl",
+        "body": [
+            "# eTool: EnrichPamsCl",
+            "# ADD_BY_MACRO_xxx      = PAMSCL MACRO  |   CYCLE MOD TO READ  |  UNVAR NUM TO ADD",
+            "#                         Use to enrich all macros with the given number in pamscl",
+            "#                         with the value of",
+            "#                         selected modifier.",
+            "#                         Note: xxx can be anything, its only for making the attrib uniqe.",
+            "#                               The Plugin check for StartsWith(\"ADD_BY_MACRO_\")",
+            "# ADD_BY_VERB_NOUN_xxx  = VERB  |  NOUN  |  CYCLE MOD TO READ  |  UNVAR NUM TO ADD",
+            "#                         Use to enrich all macros in pamscl that matches a instruction with",
+            "#                         the given verb / noun with the value of selected modifier.",
+            "#                         Note: xxx can be anything, its only for making the attrib uniqe.",
+            "#                               The Plugin check for StartsWith(\"ADD_BY_VERB_NOUN_\")",
+            "# ADD_INS_NAMES         = format  | USVAR NUM TO ADD",
+            "#                         Use to add a Name String for all macros in pamscl that matches",
+            "#                         a instruction. If format is numeric it will passing to a UNVAR... else",
+            "#                         it will passing to a USVAR...",
+            "#                         Placeholders: {INS} = Instruction Number",
+            "#                                       {NAME} = Instruction Name",
+            "#                                       {VERB} = Instruction verb",
+            "#                                       {NOUN} = Instruction noun",
+            "# NEXT_FEED_SPEED       = This command will provide the System variables XYFEED, ZFEED, FEED,",
+            "#                         NEXTSPEED inner the toolchange code constructors.",
+            "#                         The variables will be filled by the next programmed technology data,",
+            "#                         which followes after your current tool inner the EDGECAM Sequence.",
+            "#                         It also handles the approaching COOLANT and THROUGHCOOLANT",
+            "#                         in case of using GunDrilling.",
+            "# CALL_TOMBSTONE_SERVICES = Use this command to let call the TombstoneServices after the EnrichPamsCL",
+            "# MOVE_M43_AFTER_M15    = Use this command to Move a M43 (Index) that comes before a M15",
+            "#                         (toolchange) after the toolchange. This is usefull with tombstone",
+            "#                         because tombstone moves the M43 alltimes before M15 what is bad",
+            "# General Notes:",
+            "#   CYCLE MOD TO READ:  Using a $ bevore like \\$21 to get the string value of the mod",
+            "#   UNVAR NUM TO ADD:   You can set the mod inner {} to define a format string, without {} it",
+            "#                       will pass the value as normal numeric or text",
+            "#                       Examples: ADD_BY_MACRO_2 = 5  | \\$21  | Compensation: {501}",
+            "#                                 ADD_BY_MACRO_2 = 5  | \\$21  | 501",
+            "#                                 ADD_BY_MACRO_2 = 5  |  21  | 501",
+            "[ENRICHPAMSCL]",
+            "# PASS - CUT INCREMENT => UNVAR520",
+            "ADD_BY_MACRO_1      = 4  | 10   | Cut Increment: {500}",
+            "# PASS - COMPENSATION => UNVAR529",
+            "ADD_BY_MACRO_2      = 5  | \\$21  | Compensation: {501}",
+            "# PASS - ROUGHING - STEPOVER => UNVAR500",
+            "ADD_BY_VERB_NOUN_1  = 48  | 114 | 16  | 500",
+            "# Will pass number, name, verb and noun for all Instructions to USVAR599",
+            "ADD_INS_NAMES_1     = Instruktion {INS} - ({VERB}, {NOUN}): {NAME} | 599",
+            "# Will pass the instruction numbers to UNVAR599",
+            "ADD_INS_NAMES_2     = {INS} | 599",
+            "# ENRICH TOOLCHANGE CODE CONSTRUCTORS WITH NEXT FEED AND SPEED",
+            "NEXT_FEED_SPEED     =",
+            "# CALL TOMBSTONESERVICES TOO",
+            "CALL_TOMBSTONE_SERVICES  =",
+            ""
+        ],
+        "description": "Enrich Pams CL"
+    }
+}

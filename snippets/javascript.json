@@ -1,0 +1,79 @@
+{
+	// Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"ec-js": {
+		"prefix": "ec-js",
+		"body": [
+			"/// <reference path=\"c:\\program files\\vero software\\edgecam 2020.0\\cam\\PCI\\pci-vsdoc.js\" />",
+			"",
+			"",
+			"main();",
+			"",
+			"",
+			"function main() {",
+			"",
+			"}",
+			""
+		],
+		"description": "Add the body for a EDGECAM js script"
+	},
+	"ec-dig-single": {
+		"prefix": "ec-dig-single",
+		"body": [
+			"",
+			"var gdh = InitDigInfo();",
+			"",
+			"// nDigType:  _FREEDIG, _ENTITYDIG",
+			"// strEntityTypes: -255 - All,",
+			"// strValidSmod: -255 - All, 58 - Coord input dialog, 59 - Display, 63 - Entity type, 64 - Construct, 65 - Window selection, 66 - Chain, 69 - Reference input, 211 - 3D Snap, 212 - Tangent Chain, 213 - 2D Chain, 236 - Paradata",
+			"nRet = AskDigInfo(\"Auswählen\", gdh, _ENTITYDIG, \"-255\", \"-255\", false);",
+			"if (nRet > 0) {",
+			"    QueryDigInfo(gdh, 0);",
+			"",
+			"    // ...",
+			"",
+			"}",
+			"FreeDigInfo(gdh);",
+			""
+		],
+		"description": "Add the body for a EDGECAM js script"
+	},
+	"ec-dig-multi": {
+		"prefix": "ec-dig-multi",
+		"body": [
+			"",
+			"var gdh1 = InitDigInfo();",
+			"// nDigType:  _FREEDIG, _ENTITYDIG",
+			"// strEntityTypes: -255 - All,",
+			"// strValidSmod: -255 - All, 58 - Coord input dialog, 59 - Display, 63 - Entity type, 64 - Construct, 65 - Window selection, 66 - Chain, 69 - Reference input, 211 - 3D Snap, 212 - Tangent Chain, 213 - 2D Chain, 236 - Paradata",
+			"var nRet = AskDigInfo(\"Auswählen\", gdh1, _ENTITYDIG, _ETYPE_HOLE_FEATURE, \"\", _TRUE);",
+			"if (nRet == _FINISH) {",
+			"    var i = 0;",
+			"    while (true) {", 
+			"        nRet = QueryDigInfo(gdh1, i);",   
+			"",
+			"        var entno = GetPCIVariable(\"&ENTNO\");",
+			"        var etype = GetPCIVariable(\"&ETYPE\");",
+			"",
+			"        if (entno == 0) break;",
+			"",            
+			"        i++;",
+			"    }",
+			"}",
+			"FreeDigInfo(gdh1);",
+			""
+		],
+		"description": "Add the body for a EDGECAM js script"
+	}
+}
